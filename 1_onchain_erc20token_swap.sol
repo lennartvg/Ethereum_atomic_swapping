@@ -1,0 +1,57 @@
+pragma solidity ^0.4.18;
+
+contract ERC20 {
+
+    function totalSupply() constant returns (uint256 supply) {}
+    function balanceOf(address _owner) constant returns (uint256 balance) {}
+    function transfer(address _to, uint256 _value) returns (bool success) {}
+    function transferFrom(address _from, address _to, uint256 _value) returns (bool success) {}
+    function approve(address _spender, uint256 _value) returns (bool success) {}
+    function allowance(address _owner, address _spender) constant returns (uint256 remaining) {}
+
+    event Transfer(address indexed _from, address indexed _to, uint256 _value);
+    event Approval(address indexed _owner, address indexed _spender, uint256 _value);
+}
+
+contract OnchainERC20tokenSwap {
+    
+    address clientA;    // wallet
+    address clientB;    // wallet
+    address PCU;        // contract
+    address BT;         // contract
+    ERC20 PCU_instance;
+    ERC20 BT_instance;
+    uint amountOf_BT_ClientAReceives;
+    uint amountOf_PCU_ClientBReceives;
+     
+    function OnchainERC20tokenSwap() {
+        clientA = msg.sender; 
+        clientB = 0x29a139Ba53f72cfbd40e9d9c7608B8f560551bfe; // Peter's Rinkeby wallet
+        PCU = 0x8a357b544c979ee2d40489f09ec6c0363f31186c;
+        BT = 0x94d3e52bf866e1f8fcc6fa84e7ebcb3ef947f32d;
+        
+        PCU_instance = ERC20(PCU);
+        BT_instance = ERC20(BT);
+        amountOf_BT_ClientAReceives = 50;
+        amountOf_PCU_ClientBReceives = 50;
+    }
+
+    // accept funds to be sent to this contract
+    function () payable {
+    }
+    
+    function thisHasSufficientFunds() {
+        ERC20 PCU_instance = ERC20(PCU);
+        ERC20 BT_instance = ERC20(BT);
+        uint256 PCU_Funds = PCU_instance.balanceOf(this);
+        uint256 BT_Funds = BT_instance.balanceOf(this);
+    }
+    
+    function returnClientA_PCUFunds() {
+        PCU_instance.balanceOf(clientA);
+    }
+
+}
+
+
+

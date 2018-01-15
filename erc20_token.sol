@@ -7,7 +7,7 @@ contract TokenImplementation is ERC20 {
     string public name;
     // uint8 public decimals;
     string public symbol;
-    uint256 public totalSupply = 1000000;
+    uint256 public totalNrOfTokens = 1000000;
     
     mapping (address => uint256) balances;
     mapping (address => mapping (address => uint256)) allowed;
@@ -16,7 +16,7 @@ contract TokenImplementation is ERC20 {
         name = "BasicToken";
         // decimals = 3;
         symbol = "BT";
-        balances[msg.sender] = totalSupply; 
+        balances[msg.sender] = totalNrOfTokens; 
     }
     
     function () payable {
@@ -28,7 +28,7 @@ contract TokenImplementation is ERC20 {
     // }
     
     function totalSupply() constant returns (uint256 supply) {
-        return totalSupply;
+        return totalNrOfTokens;
     }
     
     function balanceOf(address _owner) constant returns (uint256 balance) {

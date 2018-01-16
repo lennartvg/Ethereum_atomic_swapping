@@ -15,41 +15,68 @@ contract ERC20 {
 
 contract OnchainERC20tokenSwap {
     
-    address clientA;    // wallet
-    address clientB;    // wallet
-    address PCU;        // contract
-    address BT;         // contract
+    address clientA_addr;    // wallet
+    address clientB_addr;    // wallet
+    address PCU_addr;        // contract
+    address BT_addr;         // contract
     ERC20 PCU_instance;
     ERC20 BT_instance;
     uint amountOf_BT_ClientAReceives;
     uint amountOf_PCU_ClientBReceives;
+    
+    bool PCU_IsSufficient;
+    bool BT_IsSufficient;
      
     function OnchainERC20tokenSwap() {
-        clientA = msg.sender; 
-        clientB = 0x29a139Ba53f72cfbd40e9d9c7608B8f560551bfe; // Peter's Rinkeby wallet
-        PCU = 0x8a357b544c979ee2d40489f09ec6c0363f31186c;
-        BT = 0x94d3e52bf866e1f8fcc6fa84e7ebcb3ef947f32d;
+        clientA_addr = msg.sender; 
+        clientB_addr = 0x29a139Ba53f72cfbd40e9d9c7608B8f560551bfe; // Peter's Rinkeby wallet
+        PCU_addr = 0x8a357b544c979ee2d40489f09ec6c0363f31186c;
+        BT_addr = 0x94d3e52bf866e1f8fcc6fa84e7ebcb3ef947f32d;
         
-        PCU_instance = ERC20(PCU);
-        BT_instance = ERC20(BT);
+        PCU_instance = ERC20(PCU_addr);
+        BT_instance = ERC20(BT_addr);
         amountOf_BT_ClientAReceives = 50;
         amountOf_PCU_ClientBReceives = 50;
+        
+        PCU_IsSufficient = false;
+        BT_IsSufficient = false;
     }
 
     // accept funds to be sent to this contract
     function () payable {
     }
     
-    function thisHasSufficientFunds() {
-        ERC20 PCU_instance = ERC20(PCU);
-        ERC20 BT_instance = ERC20(BT);
-        uint256 PCU_Funds = PCU_instance.balanceOf(this);
-        uint256 BT_Funds = BT_instance.balanceOf(this);
+    function isThereEnoughPCU() {
+        if (msg.sender == clientA_addr && amountOf_PCU_ClientBReceives <= PCU_instance.balanceOf(this)) {
+            PCU_IsSufficient = true;
+            
+            if (BT_IsSufficient == true){
+                transferFunds();
+            }
+        }
     }
     
-    function returnClientA_PCUFunds() {
-        PCU_instance.balanceOf(clientA);
+    function isThereEnoughBT() {
+        if (msg.sender == clientB_addr && amountOf_BT_ClientAReceives <= BT_instance.balanceOf(this)) {
+            BT_IsSufficient = true;
+            
+            if (PCU_IsSufficient == true){
+                transferFunds();
+            }
+        }
     }
+    
+    function transferFunds() {
+        PCU_instance.transfer(clientB_addr, amountOf_PCU_ClientBReceives);
+        BT_instance.transfer(clientA_addr, amountOf_BT_ClientAReceives);
+        // selfdestruct(clientA_addr);
+    }
+    
+    
+    
+    // function returnClientA_PCUFunds() {
+    //     PCU_instance.transfer(clientA_addr, 200);
+    // }
 
 }
 

@@ -82,6 +82,7 @@ contract OnchainERC20tokenSwap {
             }
             selfdestruct(clientA_addr);
             return true;
+            // can a return be done after selfdestruct?
         } else {
             return false;
         }

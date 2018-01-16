@@ -12,29 +12,29 @@ contract ERC20 {
 }
 
 
-// the PNC contract
+// the BT contract
 contract CrosschainERC20tokencoinSwap_Ropsten {
     
     address clientA_addr;
     address clientB_addr;
-    address PCU_addr;  // contract
-    ERC20 PCU_instance;
+    address BT_addr;  // contract
+    ERC20 BT_instance;
     bytes32 hash;
     uint timeOut;
     
     function CrosschainERC20tokencoinSwap_Ropsten() {
         clientA_addr = msg.sender;
         clientB_addr = 0xaC7fF44A24F3634d270CC5e5188985fd793ED476;  // Peter's wallet on Ropsten
-        PCU_addr = 0x8a357b544c979ee2d40489f09ec6c0363f31186c;
-        PCU_instance = ERC20(PCU_addr);
+        BT_addr = 0x94d3e52bf866e1f8fcc6fa84e7ebcb3ef947f32d;
+        BT_instance = ERC20(PCU_addr);
         hash = 0xba1cef85d1b28d5a2e45367e4c9196b1b148a7c35baf21a839089ef5a864439d;  // secret = "petnart"
         timeOut = now + 1 hours;
     }
 
     function claim(string _secret) public returns(bool) {
        if (hash == sha256(_secret)){
-            uint total_PCU_received = PCU_instance.balanceOf(this);
-            PCU_instance.transfer(clientB_addr, total_PCU_received);
+            uint total_BT_received = BT_instance.balanceOf(this);
+            BT_instance.transfer(clientB_addr, total_BT_received);
             selfdestruct(clientB_addr);
             return true;
        } else {
@@ -44,8 +44,8 @@ contract CrosschainERC20tokencoinSwap_Ropsten {
 
     function refund() public returns(bool) {
         if (msg.sender == clientA_addr && now >= timeOut) {
-            uint total_PCU_received = PCU_instance.balanceOf(this);
-            PCU_instance.transfer(clientA_addr, total_PCU_received);
+            uint total_BT_received = BT_instance.balanceOf(this);
+            BT_instance.transfer(clientA_addr, total_BT_received);
             selfdestruct(clientA_addr);
             return true;
         } else {

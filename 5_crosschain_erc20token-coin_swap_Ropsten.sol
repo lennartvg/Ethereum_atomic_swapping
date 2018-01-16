@@ -11,6 +11,8 @@ contract ERC20 {
     event Approval(address indexed _owner, address indexed _spender, uint256 _value);
 }
 
+
+// the Token contract
 contract CrosschainERC20tokencoinSwap_Ropsten {
     
     address clientA_addr;
@@ -20,7 +22,6 @@ contract CrosschainERC20tokencoinSwap_Ropsten {
     bytes32 hash;
     uint timeOut;
     
-    // the PNC contract
     function CrosschainERC20tokencoinSwap_Ropsten() {
         clientA_addr = msg.sender;
         clientB_addr = 0xaC7fF44A24F3634d270CC5e5188985fd793ED476;  // Peter's wallet on Ropsten
@@ -43,6 +44,8 @@ contract CrosschainERC20tokencoinSwap_Ropsten {
 
     function refund() public returns(bool) {
         if (msg.sender == clientA_addr && now >= timeOut) {
+            uint total_PCU_received = PCU_instance.balanceOf(this);
+            PCU_instance.transfer(clientA_addr, total_PCU_received);
             selfdestruct(clientA_addr);
             return true;
         } else {

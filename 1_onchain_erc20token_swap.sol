@@ -43,8 +43,8 @@ contract OnchainERC20tokenSwap {
     }
 
     // accept funds to be sent to this contract
-    function () payable {
-    }
+    // function () payable {
+    // }
     
     function isThereEnoughPCU() {
         if (msg.sender == clientA_addr && amountOf_PCU_ClientBReceives <= PCU_instance.balanceOf(this)) {

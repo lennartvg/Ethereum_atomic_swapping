@@ -12,81 +12,79 @@ contract ERC20 {
 }
 
 
-// client A will transfer some PCU to client B
-// client B will transfer some BT to client A
+// client A will transfer some token1 to client B
+// client B will transfer some token2 to client A
 contract OnchainERC20tokenSwap {
     
-    address clientA_addr;       // wallet
-    address clientB_addr;       // wallet
-    address PCU_addr;           // contract
-    address BT_addr;            // contract
-    ERC20 PCU_instance;
-    ERC20 BT_instance;
-    uint amountOf_PCU_ClientBReceives;
-    uint amountOf_BT_ClientAReceives;
-    bool PCU_IsSufficient;
-    bool BT_IsSufficient;
+    address clientA_addr;  // wallet
+    address clientB_addr;  // wallet
+    address token1_addr;  // contract
+    address token2_addr;  // contract
+    ERC20 token1_instance;
+    ERC20 token2_instance;
+    uint amountOf_token1_ClientBReceives;
+    uint amountOf_token2_ClientAReceives;
+    bool token1_IsSufficient;
+    bool token2_IsSufficient;
     uint timeOut;  
 
-    function OnchainERC20tokenSwap() {
+    function OnchainERC20tokenSwap(address _clientB_addr, address _token1_addr, address _token2_addr) {
         clientA_addr = msg.sender; 
-        clientB_addr = 0x29a139Ba53f72cfbd40e9d9c7608B8f560551bfe; // Peter's Rinkeby wallet
-        PCU_addr = 0x8a357b544c979ee2d40489f09ec6c0363f31186c;
-        BT_addr = 0x94d3e52bf866e1f8fcc6fa84e7ebcb3ef947f32d;
-        PCU_instance = ERC20(PCU_addr);
-        BT_instance = ERC20(BT_addr);
-        amountOf_PCU_ClientBReceives = 50;
-        amountOf_BT_ClientAReceives = 50;
-        PCU_IsSufficient = false;
-        BT_IsSufficient = false;
+        clientB_addr = _clientB_addr;
+        token1_addr = _token1_addr;
+        token2_addr = _token2_addr;
+        token1_instance = ERC20(token1_addr);
+        token2_instance = ERC20(token2_addr);
+        amountOf_token1_ClientBReceives = 50;
+        amountOf_token2_ClientAReceives = 50;
+        token1_IsSufficient = false;
+        token2_IsSufficient = false;
         timeOut = now + 1 hours;
     }
 
     function clientA_transferFundsIfPossible() public {
-        if (msg.sender == clientA_addr && amountOf_PCU_ClientBReceives <= PCU_instance.balanceOf(this)) {
-            PCU_IsSufficient = true;
+        uint token1_balance = token1_instance.balanceOf(this);
+        if (msg.sender == clientA_addr && amountOf_token1_ClientBReceives <= token1_balance) {
+            token1_IsSufficient = true;
             
-            if (BT_IsSufficient == true){
-                transferFunds();
+            if (token2_IsSufficient == true){
+                transferFunds(token1_balance, token2_instance.balanceOf(this));
             }
         }
     }
     
     function clientB_transferFundsIfPossible() public {
-        if (msg.sender == clientB_addr && amountOf_BT_ClientAReceives <= BT_instance.balanceOf(this)) {
-            BT_IsSufficient = true;
-            
-            if (PCU_IsSufficient == true){
-                transferFunds();
+        uint token2_balance = token2_instance.balanceOf(this);
+        if (msg.sender == clientB_addr && amountOf_token2_ClientAReceives <= token2_balance) {
+            token2_IsSufficient = true;
+        
+            if (token1_IsSufficient == true){
+                transferFunds(token1_instance.balanceOf(this), token2_balance);
             }
         }
     }
     
-    function transferFunds() internal {
-        // uint total_PCU_received = PCU_instance.balanceOf(this);
-        // uint total_BT_received = BT_instance.balanceOf(this);
-        PCU_instance.transfer(clientB_addr, amountOf_PCU_ClientBReceives);
-        BT_instance.transfer(clientA_addr, amountOf_BT_ClientAReceives);
+    function transferFunds(uint _token1_balance, uint _token2_balance) internal {
+        token1_instance.transfer(clientB_addr, _token1_balance);
+        token2_instance.transfer(clientA_addr, _token2_balance);
         selfdestruct(clientA_addr);
     }
     
     function refund() public returns(bool) {
         if (now >= timeOut) {
-            uint total_PCU_received = PCU_instance.balanceOf(this);
-            uint total_BT_received = BT_instance.balanceOf(this);
-            if (total_PCU_received > 0){
-                PCU_instance.transfer(clientA_addr, total_PCU_received);
+            uint token1_balance = token1_instance.balanceOf(this);
+            uint token2_balance = token2_instance.balanceOf(this);
+            if (token1_balance > 0){
+                token1_instance.transfer(clientA_addr, token1_balance);
             }
-            if (total_BT_received > 0){
-                BT_instance.transfer(clientB_addr, total_BT_received);   
+            if (token2_balance > 0){
+                token2_instance.transfer(clientB_addr, token2_balance);   
             }
             selfdestruct(clientA_addr);
             return true;
-            // can a return be done after selfdestruct?
         } else {
             return false;
         }
     }
 
 }
-

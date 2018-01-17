@@ -80,4 +80,8 @@ contract OnchainTokenSwap {
             return false;
         }
     }
+    
+    function () public payable {
+        revert();
+    }
 }

@@ -56,7 +56,7 @@ contract OnchainTokenSwap {
         }
     }
     
-    function refund() onlyParticipant public returns (bool) {
+    function refundFunds() onlyParticipant public returns (bool) {
         if (now >= timeOut) {
             uint token1_balance = token1_instance.balanceOf(this);
             uint token2_balance = token2_instance.balanceOf(this);

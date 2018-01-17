@@ -11,84 +11,73 @@ contract ERC20 {
     event Approval(address indexed _owner, address indexed _spender, uint256 _value);
 }
 
-
 // client A will transfer some token1 to client B
 // client B will transfer some token2 to client A
 contract OnchainERC20tokenSwap {
     
-    address clientA_addr;  // wallet
-    address clientB_addr;  // wallet
-    address token1_addr;  // contract
-    address token2_addr;  // contract
+    address clientA;  // wallet
+    address clientB;  // wallet
+    address token1;  // contract
+    address token2;  // contract
     ERC20 token1_instance;
     ERC20 token2_instance;
-    uint amountOf_token1_ClientBReceives;
-    uint amountOf_token2_ClientAReceives;
-    bool token1_IsSufficient;
-    bool token2_IsSufficient;
+    uint amountOf_token1;
+    uint amountOf_token2;
+    bool token1_HasSufficientBalance;
+    bool token2_HasSufficientBalance;
     uint timeOut;  
-
-    function OnchainERC20tokenSwap(address _clientA_addr, address _clientB_addr, address _token1_addr, address _token2_addr, uint amountOf_token1_ClientAReceives, uint amountOf_token2_ClientBReceives) {
-        clientA_addr = _clientA_addr; 
-        clientB_addr = _clientB_addr;
-        token1_addr = _token1_addr;
-        token2_addr = _token2_addr;
-        token1_instance = ERC20(token1_addr);
-        token2_instance = ERC20(token2_addr);
-        amountOf_token1_ClientBReceives = 50;
-        amountOf_token2_ClientAReceives = 50;
-        token1_IsSufficient = false;
-        token2_IsSufficient = false;
+ 
+    function OnchainERC20tokenSwap(address _clientA, address _clientB, address _token1, 
+            address _token2, uint _amountOf_token1, uint _amountOf_token2) public {
+        clientA = _clientA; 
+        clientB = _clientB;
+        token1 = _token1;
+        token2 = _token2;
+        token1_instance = ERC20(token1);
+        token2_instance = ERC20(token2);
+        amountOf_token1 = _amountOf_token1;
+        amountOf_token2 = _amountOf_token2;
+        token1_HasSufficientBalance = false;
+        token2_HasSufficientBalance = false;
         timeOut = now + 1 hours;
     }
 
-    function clientA_transferFundsIfPossible() public {
+    modifier onlyParticipant {
+        require(msg.sender == clientA || msg.sender == clientB); 
+        _; 
+    }
+    
+    function transferFundsIfPossible() onlyParticipant public returns (bool) {
         uint token1_balance = token1_instance.balanceOf(this);
-        if (msg.sender == clientA_addr && amountOf_token1_ClientBReceives <= token1_balance) {
-            token1_IsSufficient = true;
-            
-            if (token2_IsSufficient == true){
-                transferFunds(token1_balance, token2_instance.balanceOf(this));
-            }
-        }
-    }
-    
-    function clientB_transferFundsIfPossible() public {
         uint token2_balance = token2_instance.balanceOf(this);
-        if (msg.sender == clientB_addr && amountOf_token2_ClientAReceives <= token2_balance) {
-            token2_IsSufficient = true;
-        
-            if (token1_IsSufficient == true){
-                transferFunds(token1_instance.balanceOf(this), token2_balance);
-            }
-        }
-    }
-    
-    function transferFunds(uint _token1_balance, uint _token2_balance) internal {
-        token1_instance.transfer(clientB_addr, _token1_balance);
-        token2_instance.transfer(clientA_addr, _token2_balance);
-        selfdestruct(clientA_addr);
-    }
-    
-    function refund() public returns(bool) {
-        if (now >= timeOut) {
-            uint token1_balance = token1_instance.balanceOf(this);
-            uint token2_balance = token2_instance.balanceOf(this);
-            if (token1_balance > 0){
-                token1_instance.transfer(clientA_addr, token1_balance);
-            }
-            if (token2_balance > 0){
-                token2_instance.transfer(clientB_addr, token2_balance);   
-            }
-            selfdestruct(clientA_addr);
+        if (token2_balance >= amountOf_token2 && token1_balance >= amountOf_token1) {
+            transferFunds(token1_balance, token2_balance);
             return true;
         } else {
             return false;
         }
     }
-
-    function () public payable {
-        revert();
+    
+    function transferFunds(uint _token1_balance, uint _token2_balance) internal {
+        token1_instance.transfer(clientB, _token1_balance);
+        token2_instance.transfer(clientA, _token2_balance);
+        selfdestruct(clientA);
     }
-
+    
+    function refund() public returns (bool) {
+        if (now >= timeOut) {
+            uint token1_balance = token1_instance.balanceOf(this);
+            uint token2_balance = token2_instance.balanceOf(this);
+            if (token1_balance > 0){
+                token1_instance.transfer(clientA, token1_balance);
+            }
+            if (token2_balance > 0){
+                token2_instance.transfer(clientB, token2_balance);   
+            }
+            selfdestruct(clientA);
+            return true;
+        } else {
+            return false;
+        }
+    }
 }

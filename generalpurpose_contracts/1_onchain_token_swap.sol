@@ -23,8 +23,6 @@ contract OnchainTokenSwap {
     ERC20 token2_instance;
     uint amountOf_token1;
     uint amountOf_token2;
-    bool token1_HasSufficientBalance;
-    bool token2_HasSufficientBalance;
     uint timeOut;  
  
     function OnchainTokenSwap(address _clientA, address _clientB, address _token1, 
@@ -80,7 +78,7 @@ contract OnchainTokenSwap {
             return false;
         }
     }
-    
+
     function () public payable {
         revert();
     }

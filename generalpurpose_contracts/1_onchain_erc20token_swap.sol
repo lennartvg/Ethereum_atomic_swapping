@@ -28,8 +28,8 @@ contract OnchainERC20tokenSwap {
     bool token2_IsSufficient;
     uint timeOut;  
 
-    function OnchainERC20tokenSwap(address _clientB_addr, address _token1_addr, address _token2_addr) {
-        clientA_addr = msg.sender; 
+    function OnchainERC20tokenSwap(address _clientA_addr, address _clientB_addr, address _token1_addr, address _token2_addr) {
+        clientA_addr = _clientA_addr; 
         clientB_addr = _clientB_addr;
         token1_addr = _token1_addr;
         token2_addr = _token2_addr;

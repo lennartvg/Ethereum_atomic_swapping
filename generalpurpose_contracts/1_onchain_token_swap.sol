@@ -35,8 +35,6 @@ contract OnchainTokenSwap {
         token2_instance = ERC20(token2);
         amountOf_token1 = _amountOf_token1;
         amountOf_token2 = _amountOf_token2;
-        token1_HasSufficientBalance = false;
-        token2_HasSufficientBalance = false;
         timeOut = now + 1 hours;
     }
 

@@ -87,4 +87,8 @@ contract OnchainERC20tokenSwap {
         }
     }
 
+    function () public payable {
+        revert();
+    }
+
 }

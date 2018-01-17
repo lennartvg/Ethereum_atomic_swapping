@@ -27,6 +27,7 @@ contract OnchainERC20tokenSwap {
     bool token2_HasSufficientBalance;
     uint timeOut;  
  
+<<<<<<< HEAD
     function OnchainERC20tokenSwap(address _clientA, address _clientB, address _token1, 
             address _token2, uint _amountOf_token1, uint _amountOf_token2) public {
         clientA = _clientA; 
@@ -35,6 +36,16 @@ contract OnchainERC20tokenSwap {
         token2 = _token2;
         token1_instance = ERC20(token1);
         token2_instance = ERC20(token2);
+=======
+    function OnchainERC20tokenSwap(address _clientA_addr, address _clientB_addr, address _token1_addr, 
+            address _token2_addr, uint _amountOf_token1, uint _amountOf_token2) public {
+        clientA_addr = _clientA_addr; 
+        clientB_addr = _clientB_addr;
+        token1_addr = _token1_addr;
+        token2_addr = _token2_addr;
+        token1_instance = ERC20(token1_addr);
+        token2_instance = ERC20(token2_addr);
+>>>>>>> 593b1371a0259f4787b29a231ab7548df683f789
         amountOf_token1 = _amountOf_token1;
         amountOf_token2 = _amountOf_token2;
         token1_HasSufficientBalance = false;
@@ -43,11 +54,16 @@ contract OnchainERC20tokenSwap {
     }
 
     modifier onlyParticipant {
+<<<<<<< HEAD
         require(msg.sender == clientA || msg.sender == clientB); 
+=======
+        require(msg.sender == clientA_addr || msg.sender == clientB_addr); 
+>>>>>>> 593b1371a0259f4787b29a231ab7548df683f789
         _; 
     }
     
     function transferFundsIfPossible() onlyParticipant public returns (bool) {
+<<<<<<< HEAD
         uint token1_balance = token1_instance.balanceOf(this);
         uint token2_balance = token2_instance.balanceOf(this);
         if (token2_balance >= amountOf_token2 && token1_balance >= amountOf_token1) {
@@ -55,7 +71,39 @@ contract OnchainERC20tokenSwap {
             return true;
         } else {
             return false;
+=======
+        uint token1_balance;
+        uint token2_balance;
+        bool token1_balanceIsSet = false;
+        if (!token1_HasSufficientBalance) {
+            token1_balance = token1_instance.balanceOf(this);
+            token1_balanceIsSet = true;
+            if (amountOf_token1 <= token1_balance) {
+                token1_HasSufficientBalance = true;
+                
+                if(token2_HasSufficientBalance) {
+                    transferFunds(token1_balance, token2_instance.balanceOf(this));
+                    return true;
+                }
+            }
+>>>>>>> 593b1371a0259f4787b29a231ab7548df683f789
         }
+        if (!token2_HasSufficientBalance) {
+            token2_balance = token2_instance.balanceOf(this);
+            if (amountOf_token2 <= token2_balance) {
+                token2_HasSufficientBalance = true;
+                
+                if (token1_HasSufficientBalance) {
+                    if (token1_balanceIsSet) {
+                        transferFunds(token1_balance, token2_balance);
+                    } else {
+                        transferFunds(token1_instance.balanceOf(this), token2_balance);
+                    }
+                    return true;
+                }
+            }
+        }
+        return false;
     }
     
     function transferFunds(uint _token1_balance, uint _token2_balance) internal {
@@ -80,4 +128,9 @@ contract OnchainERC20tokenSwap {
             return false;
         }
     }
+<<<<<<< HEAD
 }
+=======
+
+}
+>>>>>>> 593b1371a0259f4787b29a231ab7548df683f789

@@ -43,21 +43,17 @@ contract OnchainTokenSwap {
         _; 
     }
     
-    function transferFundsIfPossible() onlyParticipant public returns (bool) {
+    function transferFunds() onlyParticipant public returns (bool) {
         uint token1_balance = token1_instance.balanceOf(this);
         uint token2_balance = token2_instance.balanceOf(this);
         if (token2_balance >= amountOf_token2 && token1_balance >= amountOf_token1 && now < timeOut) {
-            transferFunds(token1_balance, token2_balance);
+            token2_instance.transfer(clientA, _token2_balance);
+            token1_instance.transfer(clientB, _token1_balance);
+            selfdestruct(clientA);
             return true;
         } else {
             return false;
         }
-    }
-    
-    function transferFunds(uint _token1_balance, uint _token2_balance) internal {
-        token1_instance.transfer(clientB, _token1_balance);
-        token2_instance.transfer(clientA, _token2_balance);
-        selfdestruct(clientA);
     }
     
     function refund() onlyParticipant public returns (bool) {

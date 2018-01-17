@@ -47,8 +47,8 @@ contract OnchainTokenSwap {
         uint token1_balance = token1_instance.balanceOf(this);
         uint token2_balance = token2_instance.balanceOf(this);
         if (token2_balance >= amountOf_token2 && token1_balance >= amountOf_token1 && now < timeOut) {
-            token2_instance.transfer(clientA, _token2_balance);
-            token1_instance.transfer(clientB, _token1_balance);
+            token2_instance.transfer(clientA, token2_balance);
+            token1_instance.transfer(clientB, token1_balance);
             selfdestruct(clientA);
             return true;
         } else {

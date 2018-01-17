@@ -13,7 +13,7 @@ contract ERC20 {
 
 // client A will transfer some token1 to client B
 // client B will transfer some token2 to client A
-contract OnchainERC20tokenSwap {
+contract OnchainTokenSwap {
     
     address clientA;  // wallet
     address clientB;  // wallet
@@ -27,7 +27,7 @@ contract OnchainERC20tokenSwap {
     bool token2_HasSufficientBalance;
     uint timeOut;  
  
-    function OnchainERC20tokenSwap(address _clientA, address _clientB, address _token1, 
+    function OnchainTokenSwap(address _clientA, address _clientB, address _token1, 
             address _token2, uint _amountOf_token1, uint _amountOf_token2) public {
         clientA = _clientA; 
         clientB = _clientB;

@@ -2,8 +2,6 @@
 
 TODO--------------
 
-1. what if tokens are the same?
-
 
 2. be critical on if it is actually atomic.
 >what about the order that the contracts are put on the blockchain?
@@ -17,10 +15,13 @@ TEST_PHASE--------------
 (and if so: case4: is it possible to change the ERC20 so you dont need the swap contract on both sides?)
 
 
+
 DONE--------------
 
--show only the core! smallest possible
+-show only the core! smallest possible (fixed. in the .sol files)
 
--is the timeout really neccessary?
+-is the timeout really neccessary? (yes, we think it is..)
+
+-what if tokens are the same? (fixed. in case 1 of general purpose)
 
 

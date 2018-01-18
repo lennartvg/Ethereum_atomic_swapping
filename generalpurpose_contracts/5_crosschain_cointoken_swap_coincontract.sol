@@ -10,7 +10,7 @@ contract CrosschainCoinTokenSwap_CoinContract {
     function CrosschainCoinTokenSwap_CoinContract(address _clientA, address _clientB, bytes32 _hashed_secret) public {
         clientA = _clientA;
         clientB = _clientB;
-		hashed_secret = _hashed_secret;
+        hashed_secret = _hashed_secret;
         timeOut = now + 1 hours;
     }
 

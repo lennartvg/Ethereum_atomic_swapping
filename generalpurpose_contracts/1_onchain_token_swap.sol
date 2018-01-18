@@ -38,7 +38,7 @@ contract OnchainTokenSwap {
         timeOut = now + 1 hours;
     }
 
-	function () public payable {
+    function () public payable {
         revert();  // do not accept ETH to be sent to this contract
     }
 

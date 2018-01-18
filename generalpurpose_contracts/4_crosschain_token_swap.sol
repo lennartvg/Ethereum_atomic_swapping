@@ -25,7 +25,7 @@ contract CrosschainTokenSwap {
         clientB = _clientB;
         token = _token;
         token_instance = ERC20(token);
-		hashed_secret = _hashed_secret;
+        hashed_secret = _hashed_secret;
         timeOut = now + 1 hours;
     }
 

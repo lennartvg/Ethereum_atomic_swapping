@@ -31,9 +31,9 @@ contract OnchainTokenSwap {
         clientB = _clientB;
         token1 = _token1;
         token2 = _token2;
-		if (token1 == token2) {
-			selfdestruct(clientA)        
-		}
+        if (token1 == token2) {
+            selfdestruct(clientA)
+        }
         token1_instance = ERC20(token1);
         token2_instance = ERC20(token2);
         amountOf_token1 = _amountOf_token1;

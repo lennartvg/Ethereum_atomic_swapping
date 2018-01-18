@@ -4,11 +4,10 @@ TODO--------------
 
 1. what if tokens are the same?
 
-2. case4: is it possible to change the ERC20 so you dont need the swap contract on both sides?
+2. can we just keep one contract on the BC ? that's generic for all users?
+(and if so: case4: is it possible to change the ERC20 so you dont need the swap contract on both sides?)
 
-3. can we just keep one contract on the BC ? that's generic for all users?
-
-4. be critical on if it is actually atomic.
+3. be critical on if it is actually atomic.
 >what about the order that the contracts are put on the blockchain?
 >what about the order that the transactions are put on the blockchain? if A or B is a miner or both (since they have influence on it)
 

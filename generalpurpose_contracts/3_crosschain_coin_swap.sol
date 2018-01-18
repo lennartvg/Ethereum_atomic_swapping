@@ -2,8 +2,8 @@ pragma solidity ^0.4.18;
 
 contract CrosschainCoinSwap {
     
-    address clientA;
-    address clientB;
+    address clientA;  // wallet
+    address clientB;  // wallet
     bytes32 hashed_secret;
     uint timeOut;
     

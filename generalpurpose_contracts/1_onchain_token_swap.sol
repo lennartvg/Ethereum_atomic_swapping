@@ -39,7 +39,7 @@ contract OnchainTokenSwap {
     }
 
 	function () public payable {
-        revert();
+        revert();  // do not accept ETH to be sent to this contract
     }
 
     modifier onlyParticipant {

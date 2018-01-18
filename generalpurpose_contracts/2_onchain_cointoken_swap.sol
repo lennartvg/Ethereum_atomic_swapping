@@ -11,35 +11,31 @@ contract ERC20 {
     event Approval(address indexed _owner, address indexed _spender, uint256 _value);
 }
 
-// client A will transfer some <token1> to client B
-// client B will transfer some <token2> to client A
-contract OnchainTokenSwap {
+// client A will transfer some <token> to client B
+// client B will transfer some ETH to client A
+contract OnchainCoinTokenSwap {
     
     address clientA;  // wallet
     address clientB;  // wallet
-    address token1;  // contract
-    address token2;  // contract
-    ERC20 token1_instance;
-    ERC20 token2_instance;
-    uint amountOf_token1;
-    uint amountOf_token2;
+    address token;  // contract
+    ERC20 token_instance;
+    uint amountOf_token;
+    uint amountOf_ETH;
     uint timeOut;  
  
-    function OnchainTokenSwap(address _clientA, address _clientB, address _token1, 
-            address _token2, uint _amountOf_token1, uint _amountOf_token2) public {
+    function OnchainCoinTokenSwap(address _clientA, address _clientB, address _token, 
+            uint _amountOf_token, uint _amountOf_ETH) public {
         clientA = _clientA; 
         clientB = _clientB;
-        token1 = _token1;
-        token2 = _token2;
-        token1_instance = ERC20(token1);
-        token2_instance = ERC20(token2);
-        amountOf_token1 = _amountOf_token1;
-        amountOf_token2 = _amountOf_token2; 
+        token = _token;
+        token_instance = ERC20(token);
+        amountOf_token = _amountOf_token;
+        amountOf_ETH = _amountOf_ETH; 
         timeOut = now + 1 hours;
     }
-
-	function () public payable {
-        revert();
+    
+    function () payable public {
+        // accept ETH to be sent to this contract
     }
 
     modifier onlyParticipant {
@@ -48,11 +44,11 @@ contract OnchainTokenSwap {
     }
     
     function transferFunds() onlyParticipant public returns (bool) {
-        uint token1_balance = token1_instance.balanceOf(this);
-        uint token2_balance = token2_instance.balanceOf(this);
-        if (token2_balance >= amountOf_token2 && token1_balance >= amountOf_token1 && now < timeOut) {
-			token1_instance.transfer(clientB, token1_balance);
-            token2_instance.transfer(clientA, token2_balance);
+        uint token_balance = token_instance.balanceOf(this);
+        uint ETH_balance = this.balance / 10**18;
+        if (token_balance >= amountOf_token && ETH_balance >= amountOf_ETH && now < timeOut) {
+            token_instance.transfer(clientB, token_balance);
+            clientA.transfer(ETH_balance * 10**18);
             selfdestruct(clientA);
             return true;
         } else {
@@ -62,13 +58,13 @@ contract OnchainTokenSwap {
     
     function refundFunds() onlyParticipant public returns (bool) {
         if (now >= timeOut) {
-            uint token1_balance = token1_instance.balanceOf(this);
-            uint token2_balance = token2_instance.balanceOf(this);
-            if (token1_balance > 0){
-                token1_instance.transfer(clientA, token1_balance);
+            uint token_balance = token_instance.balanceOf(this);
+            uint ETH_balance = this.balance / 10**18;
+            if (token_balance > 0){
+                token_instance.transfer(clientA, token_balance);
             }
-            if (token2_balance > 0){
-                token2_instance.transfer(clientB, token2_balance);   
+            if (ETH_balance > 0){
+                clientB.transfer(ETH_balance * 10**18);  
             }
             selfdestruct(clientA);
             return true;

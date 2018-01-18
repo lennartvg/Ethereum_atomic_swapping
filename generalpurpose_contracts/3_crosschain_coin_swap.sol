@@ -15,7 +15,7 @@ contract CrosschainCoinSwap {
     }
 
     function () payable public {
-        // accept funds to be sent to this contract
+        // accept ETH to be sent to this contract
     }
 
     function claim(string _secret) public returns (bool) {

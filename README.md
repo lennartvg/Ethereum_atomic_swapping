@@ -11,4 +11,5 @@
 **sources:**
 * https://github.com/ConsenSys/Token-Factory/tree/master/contracts
 * https://github.com/realcodywburns/Tank-Farm/blob/master/contracts/locking/HTLC%28mew%29.sol
+* https://github.com/AltCoinExchange/ethatomicswap/blob/master/contracts/AtomicSwap.sol
 

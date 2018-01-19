@@ -39,7 +39,7 @@ contract OnchainTokenSwap_Multiple {
     }
 
     function initiateNewSwap(address _clientA, address _clientB, address _token1, 
-            address _token2, uint _amountOf_token1, uint _amountOf_token2) public constant returns (uint256) {
+            address _token2, uint _amountOf_token1, uint _amountOf_token2) public returns (uint256) {
         var swap = swaps[current_swapID];
         swap.clientA = _clientA;
         swap.clientB = _clientB;
@@ -54,7 +54,7 @@ contract OnchainTokenSwap_Multiple {
         return (current_swapID - 1);
     }
     
-    function transferFunds(uint256 _swapID) public constant returns (bool) {
+    function transferFunds(uint256 _swapID) public returns (bool) {
         var swap = swaps[_swapID];
         if (msg.sender == swap.clientA || msg.sender == swap.clientB) {
             uint token1_balance = swap.token1_instance.balanceOf(this);
@@ -73,7 +73,7 @@ contract OnchainTokenSwap_Multiple {
 
     }
     
-    function refundFunds(uint256 _swapID) public constant returns (bool) {
+    function refundFunds(uint256 _swapID) public returns (bool) {
         var swap = swaps[_swapID];
         if ((msg.sender == swap.clientA || msg.sender == swap.clientB) && now >= swap.timeOut) {
             uint token1_balance = swap.token1_instance.balanceOf(this);

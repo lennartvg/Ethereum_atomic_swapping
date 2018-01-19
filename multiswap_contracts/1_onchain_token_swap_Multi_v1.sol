@@ -27,33 +27,29 @@ contract OnchainTokenSwap_Multiple {
         uint timeOut; 
     }
     
-    uint256 current_swapID;
     mapping (uint256 => SwapInstance) swaps;
  
-    function OnchainTokenSwap_Multiple() {
-        current_swapID = 0;
+    function OnchainTokenSwap_Multiple() public {
     }
 
     function () public payable {
         revert();  // do not accept ETH to be sent to this contract
     }
 
-    function initiateNewSwap(address _clientA, address _clientB, address _token1, 
-            address _token2, uint _amountOf_token1, uint _amountOf_token2) public constant returns (uint256) {
-        swaps[current_swapID].clientA = _clientA;
-        swaps[current_swapID].clientB = _clientB;
-        swaps[current_swapID].token1 = _token1;
-        swaps[current_swapID].token2 = _token2;
-        swaps[current_swapID].token1_instance = ERC20(_token1);
-        swaps[current_swapID].token2_instance = ERC20(_token2);
-        swaps[current_swapID].amountOf_token1 = _amountOf_token1;
-        swaps[current_swapID].amountOf_token2 = _amountOf_token2;
-        swaps[current_swapID].timeOut = now + 1 hours;
-        current_swapID += 1;
-        return (current_swapID - 1);
+    function initiateNewSwap(uint256 _swapID, address _clientA, address _clientB, address _token1, 
+            address _token2, uint _amountOf_token1, uint _amountOf_token2) public returns (uint256) {
+        swaps[_swapID].clientA = _clientA;
+        swaps[_swapID].clientB = _clientB;
+        swaps[_swapID].token1 = _token1;
+        swaps[_swapID].token2 = _token2;
+        swaps[_swapID].token1_instance = ERC20(_token1);
+        swaps[_swapID].token2_instance = ERC20(_token2);
+        swaps[_swapID].amountOf_token1 = _amountOf_token1;
+        swaps[_swapID].amountOf_token2 = _amountOf_token2;
+        swaps[_swapID].timeOut = now + 1 hours;
     }
     
-    function transferFunds(uint256 _swapID) public constant returns (bool) {
+    function transferFunds(uint256 _swapID) public returns (bool) {
         if (msg.sender == swaps[_swapID].clientA || msg.sender == swaps[_swapID].clientB) {
             uint token1_balance = swaps[_swapID].token1_instance.balanceOf(this);
             uint token2_balance = swaps[_swapID].token2_instance.balanceOf(this);
@@ -71,7 +67,7 @@ contract OnchainTokenSwap_Multiple {
 
     }
     
-    function refundFunds(uint256 _swapID) public constant returns (bool) {
+    function refundFunds(uint256 _swapID) public returns (bool) {
         if ((msg.sender == swaps[_swapID].clientA || msg.sender == swaps[_swapID].clientB) && now >= swaps[_swapID].timeOut) {
             uint token1_balance = swaps[_swapID].token1_instance.balanceOf(this);
             uint token2_balance = swaps[_swapID].token2_instance.balanceOf(this);

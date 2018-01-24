@@ -8,9 +8,9 @@
 5. Cross-chain coin/token swaps - *two contracts* are needed (one per blockchain).
 
 **Folders (for each of these contracts, the wallet addresses and type of ERC20 contracts can be specified):**
-* 'generalpurpose_contracts': 1 time usage contracts.
-* 'multiswap_contracts_funded': X time usage contracts, where the funds are donated to the swap contract by both parties.
-* 'multiswap_contracts_nonfunded': X time usage contracts, where the swap contract is granted approval by both parties to swap the funds.
+* generalpurpose_contracts: 1 time usage contracts.
+* multiswap_contracts_funded: X time usage contracts, where the funds are donated to the swap contract by both parties.
+* multiswap_contracts_nonfunded: X time usage contracts, where the swap contract is granted approval by both parties to swap the funds.
 
 **sources:**
 * https://github.com/ConsenSys/Token-Factory/tree/master/contracts

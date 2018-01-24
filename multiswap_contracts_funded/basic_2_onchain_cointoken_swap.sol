@@ -15,58 +15,63 @@ contract ERC20 {
 // client B will transfer some ETH to client A
 contract OnchainCoinTokenSwap {
     
-    address clientA;  // wallet
-    address clientB;  // wallet
-    address token;  // contract
-    ERC20 token_instance;
-    uint amountOf_token;
-    uint amountOf_ETH;
-    uint timeOut;  
+    struct SwapInstance {
+        address clientA;  // wallet
+        address clientB;  // wallet
+        address token;  // contract
+        ERC20 token_instance;
+        uint amountOf_token;
+        uint amountOf_ETH;
+        uint timeOut; 
+    }
+    
+    mapping (uint => SwapInstance) swaps;
  
-    function OnchainCoinTokenSwap(address _clientA, address _clientB, address _token, 
-            uint _amountOf_token, uint _amountOf_ETH) public {
-        clientA = _clientA; 
-        clientB = _clientB;
-        token = _token;
-        token_instance = ERC20(token);
-        amountOf_token = _amountOf_token;
-        amountOf_ETH = _amountOf_ETH; 
-        timeOut = now + 1 hours;
+    function OnchainCoinTokenSwap() public {
+        // constructor
     }
     
     function () payable public {
         // accept ETH to be sent to this contract
     }
 
-    modifier onlyParticipant {
-        require(msg.sender == clientA || msg.sender == clientB); 
-        _; 
+    function initiateNewSwap(uint _swapID, address _clientA, address _clientB, address _token, uint _amountOf_token, uint _amountOf_ETH) public {
+        
+        swaps[_swapID] = SwapInstance({clientA:_clientA, clientB:_clientB, token:_token, token_instance:ERC20(_token), 
+        amountOf_token:_amountOf_token, amountOf_ETH:_amountOf_ETH, timeOut:(now + 1 hours)});
     }
     
-    function transferFunds() onlyParticipant public returns (bool) {
-        uint token_balance = token_instance.balanceOf(this);
-        uint ETH_balance = this.balance / 10**18;
-        if (token_balance >= amountOf_token && ETH_balance >= amountOf_ETH && now < timeOut) {
-            token_instance.transfer(clientB, token_balance);
-            clientA.transfer(ETH_balance * 10**18);
-            selfdestruct(clientA);
-            return true;
+    function transferFunds(uint _swapID) public returns (bool) {
+        SwapInstance memory s = swaps[_swapID];
+        if (msg.sender == s.clientA || msg.sender == s.clientB) {
+            uint token_balance = s.token_instance.balanceOf(this);
+            uint ETH_balance = this.balance / 10**18;
+            
+            if (token_balance >= s.amountOf_token && ETH_balance >= s.amountOf_ETH && now < s.timeOut) {
+			    s.token_instance.transfer(s.clientB, token_balance);
+                s.clientA.transfer(ETH_balance * 10**18);
+                return true;
+            } else {
+                return false;
+            }    
         } else {
             return false;
         }
+
     }
     
-    function refundFunds() onlyParticipant public returns (bool) {
-        if (now >= timeOut) {
-            uint token_balance = token_instance.balanceOf(this);
+    function refundFunds(uint _swapID) public returns (bool) {
+        SwapInstance memory s = swaps[_swapID];
+        if ((msg.sender == s.clientA || msg.sender == s.clientB) && now >= s.timeOut) {
+            uint token_balance = s.token_instance.balanceOf(this);
             uint ETH_balance = this.balance / 10**18;
+        
             if (token_balance > 0){
-                token_instance.transfer(clientA, token_balance);
+                s.token_instance.transfer(s.clientA, token_balance);
             }
             if (ETH_balance > 0){
-                clientB.transfer(ETH_balance * 10**18);  
+                s.clientB.transfer(ETH_balance * 10**18);
             }
-            selfdestruct(clientA);
             return true;
         } else {
             return false;

@@ -1,11 +1,11 @@
 # solidity_atomic_transactions
 
 **Different types of atomic swaps:**
-* 1. Atomic on-chain token swaps - only a *single contract* is needed.
-* 2. Aatomic on-chain coin/token swaps - also only a *single contract* is needed.
-* 3. Atomic cross-chain coin swaps - *two contracts* are needed (one per blockchain).
-* 4. Atomic cross-chain token swaps - *two contracts* are needed (one per blockchain).
-* 5. Atomic cross-chain coin/token swaps - *two contracts* are needed (one per blockchain).
+1. Atomic on-chain token swaps - only a *single contract* is needed.
+2. Aatomic on-chain coin/token swaps - also only a *single contract* is needed.
+3. Atomic cross-chain coin swaps - *two contracts* are needed (one per blockchain).
+4. Atomic cross-chain token swaps - *two contracts* are needed (one per blockchain).
+5. Atomic cross-chain coin/token swaps - *two contracts* are needed (one per blockchain).
 
 **Folders:**
 * General purpose contracts (1 time usage contracts usable for any type of ERC20 tokens).

@@ -45,7 +45,7 @@ contract OnchainTokenSwap_Multiple {
             timeOut:(now + 1 hours)});
     }
     
-    function transferFunds(uint _swapID) public returns (bool) {
+    function claim(uint _swapID) public returns (bool) {
         SwapInstance memory s = swaps[_swapID];
         if (msg.sender == s.clientA || msg.sender == s.clientB) {
             uint token1_balance = s.token1_instance.balanceOf(this);
@@ -64,7 +64,7 @@ contract OnchainTokenSwap_Multiple {
 
     }
     
-    function refundFunds(uint _swapID) public returns (bool) {
+    function refund(uint _swapID) public returns (bool) {
         SwapInstance memory s = swaps[_swapID];
         if ((msg.sender == s.clientA || msg.sender == s.clientB) && now >= s.timeOut) {
             uint token1_balance = s.token1_instance.balanceOf(this);

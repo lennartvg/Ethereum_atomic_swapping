@@ -43,7 +43,7 @@ contract OnchainCoinTokenSwap {
         _; 
     }
     
-    function transferFunds() onlyParticipant public returns (bool) {
+    function claim() onlyParticipant public returns (bool) {
         uint token_balance = token_instance.balanceOf(this);
         uint ETH_balance = this.balance / 10**18;
         if (token_balance >= amountOf_token && ETH_balance >= amountOf_ETH && now < timeOut) {
@@ -56,7 +56,7 @@ contract OnchainCoinTokenSwap {
         }
     }
     
-    function refundFunds() onlyParticipant public returns (bool) {
+    function refund() onlyParticipant public returns (bool) {
         if (now >= timeOut) {
             uint token_balance = token_instance.balanceOf(this);
             uint ETH_balance = this.balance / 10**18;

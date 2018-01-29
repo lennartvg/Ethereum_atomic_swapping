@@ -30,13 +30,13 @@ contract TokenImplementation is ERC21 {
         balances[msg.sender] = totalNrOfTokens; 
     }
     
-    function () public payable {
-    }
-    
-    // function () {
-    //     //if ether is sent to this address, send it back.
-    //     throw;
+    // function () public payable {
     // }
+    
+    function () {
+        //if ether is sent to this address, send it back.
+        throw;
+    }
     
     function totalSupply() public constant returns (uint256 supply) {
         return totalNrOfTokens;

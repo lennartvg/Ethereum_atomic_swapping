@@ -19,13 +19,13 @@ contract TokenImplementation is ERC20 {
         balances[msg.sender] = totalNrOfTokens; 
     }
     
-    function () payable {
-    }
-    
-    // function () {
-    //     //if ether is sent to this address, send it back.
-    //     throw;
+    // function () payable {
     // }
+    
+    function () {
+         //if ether is sent to this address, send it back.
+         throw;
+    }
     
     function totalSupply() constant returns (uint256 supply) {
         return totalNrOfTokens;

@@ -1,7 +1,7 @@
 # solidity_atomic_transactions
 
 **Folders (these contracts are compatible with all ERC-20 tokens):**
-* generalpurpose_contracts: contracts that are only used for a single swap.
+* generalpurpose_contracts: contracts that are used for a single swap.
 * reusable_contracts: contracts that can be used multiple times (only implemented case 1).
 
 **Different types of atomic swaps:**

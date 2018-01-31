@@ -19,7 +19,7 @@ contract CrosschainCoinTokenSwap_CoinContract {
     }
 
     function claim(string _secret) public returns (bool) {
-       if (hashed_secret == sha256(_secret)){
+       if (hashed_secret == sha256(_secret) && now < timeOut){
             selfdestruct(clientB);
             return true;
        } else {

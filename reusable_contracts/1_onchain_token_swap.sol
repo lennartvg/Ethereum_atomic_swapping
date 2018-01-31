@@ -27,7 +27,7 @@ contract OnchainTokenSwap_Multiple {
         uint timeOut; 
     }
     
-    mapping (uint => SwapInstance) swaps;
+    mapping (bytes20 => SwapInstance) swaps;
  
     function OnchainTokenSwap_Multiple() public {
         // constructor
@@ -48,16 +48,9 @@ contract OnchainTokenSwap_Multiple {
     function claim(uint _swapID) public returns (bool) {
         SwapInstance memory s = swaps[_swapID];
         if (msg.sender == s.clientA || msg.sender == s.clientB) {
-            uint token1_balance = s.token1_instance.balanceOf();
-            uint token2_balance = s.token2_instance.balanceOf(this);
-            
-            if (token2_balance >= s.amountOf_token2 && token1_balance >= s.amountOf_token1 && now < s.timeOut) {
-			    s.token1_instance.transfer(s.clientB, token1_balance);
-                s.token2_instance.transfer(s.clientA, token2_balance);
+		s.token1_instance.transferFrom(s.clientA, s.clientB, token1_balance);
+		s.token2_instance.transferFrom(s.clientB, s.clientA, token2_balance);
                 return true;
-            } else {
-                return false;
-            }    
         } else {
             return false;
         }

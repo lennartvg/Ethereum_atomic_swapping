@@ -59,12 +59,11 @@ contract OnchainCoinTokenSwap {
     function refund() onlyParticipant public returns (bool) {
         if (now >= timeOut) {
             uint token_balance = token_instance.balanceOf(this);
-            uint ETH_balance = this.balance / 10**18;
             if (token_balance > 0){
                 token_instance.transfer(clientA, token_balance);
             }
-            if (ETH_balance > 0){
-                clientB.transfer(ETH_balance * 10**18);  
+            if (this.balance > 0){
+                clientB.transfer(this.balance);  
             }
             selfdestruct(clientA);
             return true;

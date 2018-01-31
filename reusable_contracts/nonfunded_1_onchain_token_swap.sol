@@ -1,6 +1,6 @@
 pragma solidity ^0.4.18;
 
-import './erc20.sol';
+import './erc20_interface.sol';
 
 // client A will transfer some <token1> to client B
 // client B will transfer some <token2> to client A

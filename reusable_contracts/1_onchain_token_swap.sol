@@ -37,20 +37,20 @@ contract OnchainTokenSwap_Multiple {
         revert();  // do not accept ETH to be sent to this contract
     }
 
-    function initiateNewSwap(uint _swapID, address _clientA, address _clientB, address _token1, 
-            address _token2, uint _amountOf_token1, uint _amountOf_token2) public {
+    function initiateNewSwap(bytes20 _swapID, address _clientA, address _clientB, address _token1, 
+        address _token2, uint _amountOf_token1, uint _amountOf_token2) public {
         
         swaps[_swapID] = SwapInstance({clientA:_clientA, clientB:_clientB, token1:_token1, token2:_token2,
             token1_instance:ERC20(_token1), token2_instance:ERC20(_token2), amountOf_token1:_amountOf_token1, amountOf_token2: _amountOf_token2,
             timeOut:(now + 1 hours)});
     }
     
-    function claim(uint _swapID) public returns (bool) {
+    function claim(bytes20 _swapID) public returns (bool) {
         SwapInstance memory s = swaps[_swapID];
-        if (msg.sender == s.clientA || msg.sender == s.clientB) {
-		s.token1_instance.transferFrom(s.clientA, s.clientB, token1_balance);
-		s.token2_instance.transferFrom(s.clientB, s.clientA, token2_balance);
-                return true;
+        if (msg.sender == s.clientB) {
+    		s.token1_instance.transferFrom(s.clientA, s.clientB, s.amountOf_token1);
+    		s.token2_instance.transferFrom(s.clientB, s.clientA, s.amountOf_token2);
+            return true;
         } else {
             return false;
         }

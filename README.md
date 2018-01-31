@@ -1,4 +1,4 @@
-# solidity_atomic_transactions
+# Atomic swaps on and between Ethereum blockchains
 
 **Folders (these contracts are compatible with all ERC-20 tokens):**
 * generalpurpose_contracts: contracts that are used for a single swap.

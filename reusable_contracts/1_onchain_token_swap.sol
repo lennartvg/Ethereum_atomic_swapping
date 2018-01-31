@@ -1,15 +1,6 @@
 pragma solidity ^0.4.18;
 
-contract ERC20 {
-    function totalSupply() constant returns (uint256 supply) {}
-    function balanceOf(address _owner) constant returns (uint256 balance) {}
-    function transfer(address _to, uint256 _value) returns (bool success) {}
-    function transferFrom(address _from, address _to, uint256 _value) returns (bool success) {}
-    function approve(address _spender, uint256 _value) returns (bool success) {}
-    function allowance(address _owner, address _spender) constant returns (uint256 remaining) {}
-    event Transfer(address indexed _from, address indexed _to, uint256 _value);
-    event Approval(address indexed _owner, address indexed _spender, uint256 _value);
-}
+import './erc20.sol';
 
 // client A will transfer some <token1> to client B
 // client B will transfer some <token2> to client A
@@ -40,17 +31,30 @@ contract OnchainTokenSwap_Multiple {
     function initiateNewSwap(bytes20 _swapID, address _clientA, address _clientB, address _token1, 
         address _token2, uint _amountOf_token1, uint _amountOf_token2) public {
         
-        swaps[_swapID] = SwapInstance({clientA:_clientA, clientB:_clientB, token1:_token1, token2:_token2,
+        swaps[_swapID] = SwapInstance({clientA:msg.sender, clientB:_clientB, token1:_token1, token2:_token2,
             token1_instance:ERC20(_token1), token2_instance:ERC20(_token2), amountOf_token1:_amountOf_token1, amountOf_token2: _amountOf_token2,
             timeOut:(now + 1 hours)});
     }
     
+    function validateSwapInstance(bytes20 _swapID, address _clientA, address _clientB, address _token1, 
+        address _token2, uint _amountOf_token1, uint _amountOf_token2) public constant returns (bool) {
+        SwapInstance memory s = swaps[_swapID];
+        
+        if (_clientA == s.clientA && _clientB == s.clientB && _token1 == s.token1 && _token2 == s.token2
+        && _amountOf_token1 == s.amountOf_token1 && _amountOf_token2 == s.amountOf_token2) {
+            return true;
+        } else {
+            return false;
+        }
+    }
+    
     function claim(bytes20 _swapID) public returns (bool) {
         SwapInstance memory s = swaps[_swapID];
+        // require(bool condition): abort execution and revert state changes if condition is false
         if (msg.sender == s.clientB) {
-    		s.token1_instance.transferFrom(s.clientA, s.clientB, s.amountOf_token1);
-    		s.token2_instance.transferFrom(s.clientB, s.clientA, s.amountOf_token2);
-            return true;
+    		require(s.token1_instance.transferFrom(s.clientA, s.clientB, s.amountOf_token1));
+    		require(s.token2_instance.transferFrom(s.clientB, s.clientA, s.amountOf_token2));
+    		return true;
         } else {
             return false;
         }

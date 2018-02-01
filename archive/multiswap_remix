@@ -1,0 +1,155 @@
+
+0x4c3726744abc6ed0365fb3256f8614c7b3f74a26
+
+0x4c3726744ABC6Ed0365fB3256f8614C7B3f74a26
+
+0x73b10da3e8ffba6703532ed16a3e4c6e9a632477
+
+
+-------------------for later
+
+"0x1111111111111111111111111111111111111111", "0xEDd332738b85aD3456272684d52BD88e9FAcEfFA", "0x8a357b544c979ee2d40489f09ec6c0363f31186c", "0x94d3e52bf866e1f8fcc6fa84e7ebcb3ef947f32d", 1, 1
+
+"0x2222222222222222222222222222222222222222", "0xEDd332738b85aD3456272684d52BD88e9FAcEfFA", "0x8a357b544c979ee2d40489f09ec6c0363f31186c", "0x94d3e52bf866e1f8fcc6fa84e7ebcb3ef947f32d", 1, 1
+
+-------------------now
+
+"0x1111111111111111111111111111111111111111", "0xd09335449618adaedf3ea0f478d2f3af09c5b3a3", "0xEDd332738b85aD3456272684d52BD88e9FAcEfFA", "0x8a357b544c979ee2d40489f09ec6c0363f31186c", "0x94d3e52bf866e1f8fcc6fa84e7ebcb3ef947f32d", 1, 1
+
+"0x2222222222222222222222222222222222222222", "0xd09335449618adaedf3ea0f478d2f3af09c5b3a3", "0xEDd332738b85aD3456272684d52BD88e9FAcEfFA", "0x8a357b544c979ee2d40489f09ec6c0363f31186c", "0x94d3e52bf866e1f8fcc6fa84e7ebcb3ef947f32d", 1, 1
+
+"0x3333333333333333333333333333333333333333", "0xd09335449618adaedf3ea0f478d2f3af09c5b3a3", "0xEDd332738b85aD3456272684d52BD88e9FAcEfFA", "0x8a357b544c979ee2d40489f09ec6c0363f31186c", "0x94d3e52bf866e1f8fcc6fa84e7ebcb3ef947f32d", 2, 2
+
+"0x4444444444444444444444444444444444444444", "0xd09335449618adaedf3ea0f478d2f3af09c5b3a3", "0xEDd332738b85aD3456272684d52BD88e9FAcEfFA", "0x8a357b544c979ee2d40489f09ec6c0363f31186c", "0x94d3e52bf866e1f8fcc6fa84e7ebcb3ef947f32d", 1, 2
+
+"0x2222222222222222222222222222222222222222", "0xd09335449618adaedf3ea0f478d2f3af09c5b3a3", "0xEDd332738b85aD3456272684d52BD88e9FAcEfFA", "0x8a357b544c979ee2d40489f09ec6c0363f31186c", "0x94d3e52bf866e1f8fcc6fa84e7ebcb3ef947f32d", 2, 1
+
+-------------------
+
+0x1111111111111111111111111111111111111111
+0x2222222222222222222222222222222222222222
+0x3333333333333333333333333333333333333333
+
+
+
+"0x2222222222222222222222222222222222222222", "0xd09335449618adaedf3ea0f478d2f3af09c5b3a3", "0xEDd332738b85aD3456272684d52BD88e9FAcEfFA", "0x8a357b544c979ee2d40489f09ec6c0363f31186c", "0x94d3e52bf866e1f8fcc6fa84e7ebcb3ef947f32d", 2, 1
+
+
+"0x1111111111111111111111111111111111111111", "0xd09335449618adaedf3ea0f478d2f3af09c5b3a3", "0xEDd332738b85aD3456272684d52BD88e9FAcEfFA", "0x8a357b544c979ee2d40489f09ec6c0363f31186c", "0x94d3e52bf866e1f8fcc6fa84e7ebcb3ef947f32d", 1, 1
+
+
+[
+	{
+		"constant": true,
+		"inputs": [
+			{
+				"name": "_swapID",
+				"type": "bytes20"
+			},
+			{
+				"name": "_clientA",
+				"type": "address"
+			},
+			{
+				"name": "_clientB",
+				"type": "address"
+			},
+			{
+				"name": "_token1",
+				"type": "address"
+			},
+			{
+				"name": "_token2",
+				"type": "address"
+			},
+			{
+				"name": "_amountOf_token1",
+				"type": "uint256"
+			},
+			{
+				"name": "_amountOf_token2",
+				"type": "uint256"
+			}
+		],
+		"name": "validateSwapInstance",
+		"outputs": [
+			{
+				"name": "",
+				"type": "bool"
+			}
+		],
+		"payable": false,
+		"stateMutability": "view",
+		"type": "function"
+	},
+	{
+		"constant": false,
+		"inputs": [
+			{
+				"name": "_swapID",
+				"type": "bytes20"
+			}
+		],
+		"name": "claim",
+		"outputs": [
+			{
+				"name": "",
+				"type": "bool"
+			}
+		],
+		"payable": false,
+		"stateMutability": "nonpayable",
+		"type": "function"
+	},
+	{
+		"constant": false,
+		"inputs": [
+			{
+				"name": "_swapID",
+				"type": "bytes20"
+			},
+			{
+				"name": "_clientA",
+				"type": "address"
+			},
+			{
+				"name": "_clientB",
+				"type": "address"
+			},
+			{
+				"name": "_token1",
+				"type": "address"
+			},
+			{
+				"name": "_token2",
+				"type": "address"
+			},
+			{
+				"name": "_amountOf_token1",
+				"type": "uint256"
+			},
+			{
+				"name": "_amountOf_token2",
+				"type": "uint256"
+			}
+		],
+		"name": "initiateNewSwap",
+		"outputs": [],
+		"payable": false,
+		"stateMutability": "nonpayable",
+		"type": "function"
+	},
+	{
+		"inputs": [],
+		"payable": false,
+		"stateMutability": "nonpayable",
+		"type": "constructor"
+	},
+	{
+		"payable": true,
+		"stateMutability": "payable",
+		"type": "fallback"
+	}
+]
+
+

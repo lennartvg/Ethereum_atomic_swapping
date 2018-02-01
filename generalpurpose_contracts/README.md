@@ -1,6 +1,6 @@
 # General purpose contracts
 
-**Etherscan contract addresses:**
+**Etherscan swap contract addresses:**
 * 1_onchain_token_swap.sol: https://rinkeby.etherscan.io/address/0x97ad5fabd976ec4ef7116bad90bae71e3572dcee#tokentxns
 * 2_onchain_cointoken_swap.sol: <br />
 https://rinkeby.etherscan.io/address/0x7ee6506f301275fafe19f979f24d9923ed6581d3

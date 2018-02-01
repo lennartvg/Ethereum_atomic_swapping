@@ -20,3 +20,4 @@
 * https://remix.ethereum.org/
 * https://etherscan.io/
 * https://wallet.ethereum.org/
+* https://solidity.readthedocs.io/en/develop/

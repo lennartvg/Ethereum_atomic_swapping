@@ -1,4 +1,4 @@
-# Single-chain and cross-chain atomic swaps for Ethereum
+# Single-chain and Cross-chain Atomic Swaps for Ethereum
 
 **Folders (these contracts are compatible with all ERC-20 tokens):**
 * generalpurpose_contracts: contracts that are used for a single swap.

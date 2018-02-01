@@ -1,5 +1,7 @@
 # General purpose contracts
 
+Each of these swap contracts can be used for a single atomic swap between two parties. When deploying a contract, constructor arguments need to be specified, to indicate which wallet addresses are used, which tokens are swapped (if applicable), and how much funds are swapped between the parties.
+
 **Etherscan swap contract addresses (including verified source code):**
 
 There was an inconsistency between the contracts on the Rinkeby and the Ropsten blockchain. Those on the Rinkeby blockchain did not selfdestruct(), the ones on the Ropsten blockchain did. Therefore, the Ropsten contract do not have verified source code visible.

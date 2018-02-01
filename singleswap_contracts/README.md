@@ -4,7 +4,7 @@ Each of these swap contracts can be used for a single atomic swap between two pa
 
 **Etherscan swap contract addresses (including verified source code):**
 
-There was an inconsistency between the contracts on the Rinkeby and the Ropsten blockchain. Those on the Rinkeby blockchain did not selfdestruct(), the ones on the Ropsten blockchain did. Therefore, the Ropsten contract do not have verified source code visible.
+There was an inconsistency between the contracts on the Rinkeby and the Ropsten blockchain. Those on the Rinkeby blockchain did not selfdestruct(), the ones on the Ropsten blockchain did. Therefore, the Ropsten contracts do not have verified source code visible.
 
 * 1_onchain_token_swap.sol: https://rinkeby.etherscan.io/address/0x97ad5fabd976ec4ef7116bad90bae71e3572dcee
 * 2_onchain_cointoken_swap.sol: https://rinkeby.etherscan.io/address/0x7ee6506f301275fafe19f979f24d9923ed6581d3

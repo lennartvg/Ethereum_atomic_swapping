@@ -1,6 +1,6 @@
 # Single-chain and Cross-chain Atomic Swaps for Ethereum
 
-**Folders (these contracts are compatible with all ERC-20 tokens):**
+**Folders:**
 * singleswap_contracts: contracts that are used for a single swap.
 * reusable_contracts: contracts that can be used multiple times (only implemented case 1).
 

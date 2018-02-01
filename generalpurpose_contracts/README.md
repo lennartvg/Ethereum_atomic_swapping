@@ -11,12 +11,12 @@ https://ropsten.etherscan.io/address/0x7399f545b5657aaa1bff644eec4db8a269621727
 https://ropsten.etherscan.io/address/0x0af09efca0e0e9c614199df218da198f6c69502b#tokentxns
 
 **Wallets used in these swaps:**
-* Rinkeby client A: 0xd09335449618adaedf3ea0f478d2f3af09c5b3a3
-* Rinkeby client B: 0xEDd332738b85aD3456272684d52BD88e9FAcEfFA
-* Ropsten client A: 0x8659F2711cB1b1c968DE123f52020F0b337836f8
-* Ropsten client B: 0x9D11Fce4130f47B0E76a39dd83Ff49fa15fa6005
+* Rinkeby client A: https://rinkeby.etherscan.io/address/0xd09335449618adaedf3ea0f478d2f3af09c5b3a3
+* Rinkeby client B: https://rinkeby.etherscan.io/address/0xEDd332738b85aD3456272684d52BD88e9FAcEfFA
+* Ropsten client A: https://ropsten.etherscan.io/address/0x8659F2711cB1b1c968DE123f52020F0b337836f8
+* Ropsten client B: https://ropsten.etherscan.io/address/0x9D11Fce4130f47B0E76a39dd83Ff49fa15fa6005
 
 **Tokens used in these swaps:**
-* Rinkeby - PetnartCoin Unlimited (PCU): 0x8a357b544c979ee2d40489f09ec6c0363f31186c
-* Rinkeby - BasicToken (BT): 0x94d3e52bf866e1f8fcc6fa84e7ebcb3ef947f32d
+* Rinkeby - PetnartCoin Unlimited (PCU): https://rinkeby.etherscan.io/token/0x8a357b544c979ee2d40489f09ec6c0363f31186c?a=0x97ad5fabd976ec4ef7116bad90bae71e3572dcee
+* Rinkeby - BasicToken (BT): https://rinkeby.etherscan.io/token/0x94d3e52bf866e1f8fcc6fa84e7ebcb3ef947f32d?a=0x97ad5fabd976ec4ef7116bad90bae71e3572dcee
 

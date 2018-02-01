@@ -1,6 +1,6 @@
-# General purpose contracts
+# Single swap contracts
 
-Each of these swap contracts can be used for a single atomic swap between two parties. When deploying a contract, constructor arguments need to be specified, to indicate which wallet addresses are used, which tokens are swapped (if applicable), and how much funds are swapped between the parties.
+Each of these swap contracts can be used for a single atomic swap between two parties. When deploying a contract, constructor arguments need to be specified, to indicate which wallet addresses are used, which tokens are swapped (if applicable), and how much funds are swapped between the parties. These contracts are compatible with all ERC-20 tokens.
 
 **Etherscan swap contract addresses (including verified source code):**
 

@@ -17,6 +17,6 @@
 * https://github.com/AltCoinExchange/ethatomicswap/blob/master/contracts/AtomicSwap.sol
 
 **Tools used:**
-https://remix.ethereum.org/
-https://etherscan.io/
-https://wallet.ethereum.org/
+* https://remix.ethereum.org/
+* https://etherscan.io/
+* https://wallet.ethereum.org/

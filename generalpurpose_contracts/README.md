@@ -1,6 +1,9 @@
 # General purpose contracts
 
 **Etherscan swap contract addresses (including verified source code):**
+
+There was an inconsistency between the contracts on the Rinkeby and the Ropsten blockchain. Those on the Rinkeby blockchain did not selfdestruct(), the ones on the Ropsten blockchain did. Therefore, the Ropsten contract do not have verified source code visible.
+
 * 1_onchain_token_swap.sol: https://rinkeby.etherscan.io/address/0x97ad5fabd976ec4ef7116bad90bae71e3572dcee
 * 2_onchain_cointoken_swap.sol: https://rinkeby.etherscan.io/address/0x7ee6506f301275fafe19f979f24d9923ed6581d3
 * 3_crosschain_coin_swap.sol: https://rinkeby.etherscan.io/address/0xbe5c173722767e42454e3aaedc390b45426042b4

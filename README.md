@@ -1,7 +1,7 @@
 # Single-chain and Cross-chain Atomic Swaps for Ethereum
 
 **Folders (these contracts are compatible with all ERC-20 tokens):**
-* generalpurpose_contracts: contracts that are used for a single swap.
+* singleswap_contracts: contracts that are used for a single swap.
 * reusable_contracts: contracts that can be used multiple times (only implemented case 1).
 
 **Different types of atomic swaps:**
@@ -16,3 +16,7 @@
 * https://github.com/realcodywburns/Tank-Farm/blob/master/contracts/locking/HTLC%28mew%29.sol
 * https://github.com/AltCoinExchange/ethatomicswap/blob/master/contracts/AtomicSwap.sol
 
+**Tools used:**
+https://remix.ethereum.org/
+https://etherscan.io/
+https://wallet.ethereum.org/

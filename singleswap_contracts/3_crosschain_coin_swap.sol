@@ -1,3 +1,5 @@
+// Uses elements of https://github.com/realcodywburns/Tank-Farm/blob/master/contracts/locking/HTLC%28mew%29.sol
+
 pragma solidity ^0.4.18;
 
 contract CrosschainCoinSwap {

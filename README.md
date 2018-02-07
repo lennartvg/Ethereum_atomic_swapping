@@ -11,7 +11,7 @@
 4. Cross-chain token swaps - two contracts (HTLC) are needed (one per blockchain).
 5. Cross-chain coin/token swaps - two contracts (HTLC) are needed (one per blockchain).
 
-**Inspired by:**
+**Sources:**
 * https://github.com/ConsenSys/Token-Factory/tree/master/contracts
 * https://github.com/realcodywburns/Tank-Farm/blob/master/contracts/locking/HTLC%28mew%29.sol
 * https://github.com/AltCoinExchange/ethatomicswap/blob/master/contracts/AtomicSwap.sol
